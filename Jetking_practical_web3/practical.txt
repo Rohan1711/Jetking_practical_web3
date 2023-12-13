@@ -1,0 +1,40 @@
+1) Demonstrate how we can interact with Ganache using Web3.js.
+
+Step: 
+1.first we need to check nodejs is install or not by using node -v
+2.we need to install web3 package by using npm install web3
+3.import web3 to the terminal so that one can interact with it on the console, by using 
+const {Web3} = require('web3');
+4.intercating with ganache :
+
+1) create web3 object and connect it with ganache(ganache is installed in the system).ganache provides HTTP URL that is HTTP://127.0.0.1:7545
+   need to type command for intercat with ganache let web3=new Web3(new Web3.provider("HTTP://127.0.0.1:7545"));
+
+2) ganche can controlled with the help of web3, many functionality we can use now such as get the balance of the accounts of ganache
+   web3.eth.getBalance("0x8b6c4ecf681670EF3Ce20eb17f8d251f27d98E4D").then(function(value)
+   { 
+    console.log(web3.utils.fromWei(value,"ether"));
+   })
+   
+example :
+
+const {Web3} =require ('web3');
+const ganacheURL='HTTP://127.0.0.1:7545';
+const httpProvider=new Web3.providers.HttpProvider(ganacheURL);
+const web3=new Web3(httpProvider);
+
+async function main()
+{
+    try{
+        //get current block number
+        const currentBlockNumber=await web3.eth.getBlockNumber();
+        console.log("current block number is: ",currentBlockNumber);
+        // get the list of accounts in the ganache
+        const accounts=await web3.eth.getAccounts();
+        // get the updated block number
+        const updatedBlocknumber=await web3.eth.getBlockNumber();
+        console.log('updated block number : ',updatedBlocknumber);   
+    }catch(error){
+        console.log('an error accurred',error);
+    }
+}
